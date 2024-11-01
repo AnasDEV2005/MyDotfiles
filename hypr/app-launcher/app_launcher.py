@@ -19,12 +19,13 @@ from fabric.widgets.image import Image
 from fabric.widgets.entry import Entry
 from fabric.widgets.scrolledwindow import ScrolledWindow
 from fabric.widgets.wayland import WaylandWindow as Window
-from fabric.utils import DesktopApp, get_desktop_applications, idle_add, remove_handler
+from fabric.utils import DesktopApp, get_desktop_applications, idle_add, remove_handler, get_relative_path
 
 
 class AppLauncher(Window):
     def __init__(self, **kwargs):
         super().__init__(
+            name="appwindow",
             layer="top",
             anchor="center",
             exclusivity="none",
@@ -36,9 +37,10 @@ class AppLauncher(Window):
         self._arranger_handler: int = 0
         self._all_apps = get_desktop_applications()
 
-        self.viewport = Box(spacing=2, orientation="v")
+        self.viewport = Box(name='viewport', spacing=15, orientation="v")
         self.search_entry = Entry(
-            placeholder="Search Applications...",
+            name='search',
+            placeholder="Search Apps...",
             h_expand=True,
             notify_text=lambda entry, *_: self.arrange_viewport(entry.get_text()),
             on_button_press_event=print,
@@ -51,7 +53,8 @@ class AppLauncher(Window):
 
         self.add(
             Box(
-                spacing=2,
+                name="appslauncher",
+                spacing=10,
                 orientation="v",
                 style="margin: 2px",
                 children=[
@@ -126,6 +129,7 @@ class AppLauncher(Window):
 
     def bake_application_slot(self, app: DesktopApp, **kwargs) -> Button:
         return Button(
+            name='appslot',
             child=Box(
                 orientation="h",
                 spacing=12,
@@ -147,4 +151,5 @@ class AppLauncher(Window):
 if __name__ == "__main__":
     app_launcher = AppLauncher()
     app = Application("app-launcher", app_launcher)
+    app.set_stylesheet_from_file(get_relative_path('app_launcher.css'))
     app.run()

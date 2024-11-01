@@ -50,7 +50,7 @@ class SidePanel(Window):
             layer="top",
             title="fabric-overlay",
             anchor="top left bottom",
-            margin="3px -3px 13px 3px",
+            margin="0px 0px 0px 0px",
             keyboard_mode='on-demand',
             exclusivity="auto",
             visible=False,

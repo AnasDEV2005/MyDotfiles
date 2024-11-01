@@ -1,0 +1,79 @@
+:vars {
+    --foreground: rgb(255, 255, 255);
+    --background: rgb(26, 28, 30);
+    --border-color: rgb(42, 43, 45);
+    --button-color: var(--border-color);
+}
+
+* {
+    all: unset;
+    color: var(--foreground);
+    font-family: "kawkab mono";
+}
+
+#notificationbox {
+    padding: 0.8rem;
+    background-color: #31575c;
+}
+
+#notificationflameshot {
+    padding: 0.8rem;
+    background-color: #8038b1;
+}
+
+#notificationbrave {
+    padding: 0.8rem;
+    background-color: #cf6a3b;
+}
+
+#notificationvesktop {
+    padding: 0.8rem;
+    background-color: #7289da;
+}
+
+#action {
+    background-color: rgba(55, 95, 95, 0.877);
+    font-size: 13px;
+    border-radius: 3px;
+}
+
+#actiobutton {
+    color: #31575c;
+    font-size: 13px;
+    border-radius: 3px;
+}
+
+#notification {
+    border: solid 3px #41ccdf;
+    border-radius: 3px;
+}
+
+
+
+#notification .summary {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#notification .body {
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+button {
+    padding: 0px 6px 3px 6px;
+    font-size: 40px;
+    font-weight: 600;
+    color: #69edff;
+}
+
+#close-symbolic {
+    color: #69edff;
+
+}
+
+button:hover {
+    background-color: rgba(143, 249, 255, 0.151);
+    border-radius: 3px;
+}
