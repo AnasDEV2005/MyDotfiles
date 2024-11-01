@@ -17,8 +17,8 @@
     --color13: #E075DF;
     --color14: #F98F9F;
     --color15: #f5dbc4;
-    --window-bg: alpha(var(--background), 0.6);
-    --module-bg: alpha(var(--background), 0.4);
+    --window-bg: alpha(var(--background), 0.9);
+    --module-bg: alpha(var(--background), 0.8);
     --border-color: var(--color11);
 }
 
@@ -31,13 +31,20 @@
 }
 
 #window-inner {
-    border: solid 2px;
+
     border-color: var(--color11);
-    background-color: var(--window-bg);
-    border-radius: 100px;
-    border-radius: 12px;
+    background: linear-gradient(90deg,
+            alpha(#345461, 0.9),
+            alpha(var(--background), 0.7),
+            var(--module-bg));
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-left: 0px;
     padding: 10px;
 }
+
+
+
 
 #date-time>label {
     font-weight: 900;
@@ -47,7 +54,6 @@
 #header {
     border: solid 1px var(--border-color);
     border-radius: 8px;
-    box-shadow: 0px 18px 23px -6px rgba(0, 0, 0, 0.75);
     background: linear-gradient(90deg,
             alpha(var(--color11), 0.2),
             alpha(var(--background), 0.2),
@@ -66,6 +72,7 @@
 
 #progress-bar {
     color: var(--module-bg);
+    background-color: #457d85;
     border: solid 10px var(--border-color);
 }
 
@@ -80,4 +87,5 @@
     background-color: var(--module-bg);
     border-radius: 100px;
     padding: 8px;
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.041);
 }

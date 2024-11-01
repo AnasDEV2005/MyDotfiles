@@ -46,9 +46,12 @@ button {
 
 #bar-inner {
     padding: 4px;
-    border: solid 2px;
-    border-color: var(--border-color);
-    background-color: var(--window-bg);
+
+    min-height: 28px;
+}
+
+#end-container {
+    background-color: var(--window-bg);   
     min-height: 28px;
 }
 
@@ -146,7 +149,7 @@ menu>menuitem:hover {
 
 
 #cpu-progress-bar {
-    border: solid 0px alpha(var(--color9), 0.8);
+    border: solid 0px alpha(var(--foreground), 0.9);
 }
 
 #ram-progress-bar,

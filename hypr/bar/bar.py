@@ -2,6 +2,7 @@ import psutil
 from fabric import Application
 from fabric.widgets.box import Box
 from fabric.widgets.label import Label
+from fabric.widgets.button import Button
 from fabric.widgets.overlay import Overlay
 from fabric.widgets.eventbox import EventBox
 from fabric.widgets.datetime import DateTime
@@ -15,6 +16,7 @@ from fabric.utils import (
     bulk_replace,
     invoke_repeater,
     get_relative_path,
+    exec_shell_command
 )
 
 AUDIO_WIDGET = True
@@ -67,9 +69,14 @@ class VolumeWidget(Box):
             "volume", "value", self.progress_bar, lambda _, v: v / 100
         )
         return
+    
 
 
 class StatusBar(Window):
+    @staticmethod
+    def power_menu(self):
+        exec_shell_command('source ~/.config/hypr/myvenv/bin/activate && python ~/.config/hypr/power-menu/powermenu.py')
+
     def __init__(
         self,
     ):
@@ -103,16 +110,13 @@ class StatusBar(Window):
         self.date_time = DateTime(name="date-time")
         self.system_tray = SystemTray(name="system-tray", spacing=4)
 
-        self.ram_progress_bar = CircularProgressBar(
-            name="ram-progress-bar", pie=True, size=24
-        )
+
         self.cpu_progress_bar = CircularProgressBar(
-            name="cpu-progress-bar", pie=True, size=24
+            name="cpu-progress-bar", size=24, line_style='butt'
         )
         self.progress_bars_overlay = Overlay(
-            child=self.ram_progress_bar,
+            child=self.cpu_progress_bar,
             overlays=[
-                self.cpu_progress_bar,
                 Label("", style="margin: 0px 6px 0px 0px; font-size: 12px"),
             ],
         )
@@ -124,6 +128,18 @@ class StatusBar(Window):
             children=self.progress_bars_overlay,
         )
         self.status_container.add(VolumeWidget()) if AUDIO_WIDGET is True else None
+
+
+
+        self.power = Box(
+            name="widgets-container",
+            children=[
+                Button(
+                    child=Label(label="⏻", style="font-size: 20px;"),
+                    on_clicked= lambda *_: self.power_menu(self=self)),
+                    ],)
+                
+      
 
         self.children = CenterBox(
             name="bar-inner",
@@ -148,6 +164,7 @@ class StatusBar(Window):
                     self.system_tray,
                     self.date_time,
                     self.language,
+                    self.power,
                 ],
             ),
         )
@@ -157,7 +174,6 @@ class StatusBar(Window):
         self.show_all()
 
     def update_progress_bars(self):
-        self.ram_progress_bar.value = psutil.virtual_memory().percent / 100
         self.cpu_progress_bar.value = psutil.cpu_percent() / 100
         return True
 

@@ -1,0 +1,47 @@
+:vars {
+    --background: #2e4954;
+    --foreground: #63d0ff;
+    --color0: #150d16;
+    --color1: #7794c9;
+    --color2: #9C5995;
+    --color3: #5c9aab;
+    --color4: #9A62F3;
+    --color5: #E075DF;
+    --color6: #F98F9F;
+    --color7: #f5dbc4;
+    --color8: #9dc7e0;
+    --color9: #244a4f;
+    --color10: #9C5995;
+    --color11: #69edff;
+    --color12: #7794c9;
+    --color13: #E075DF;
+    --color14: #F98F9F;
+    --color15: #f5dbc4;
+    --window-bg: alpha(var(--background), 0.9);
+    --module-bg: alpha(var(--background), 0.8);
+    --border-color: var(--color11);
+}
+
+* {
+    all: unset;
+    font-family: "Jost*";
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--foreground);
+}
+
+
+
+
+
+
+
+
+#menu {
+    border: solid 1px var(--border-color);
+    border-radius: 8px;
+    background: linear-gradient(90deg,
+            alpha(var(--color11), 0.2),
+            alpha(var(--background), 0.2),
+            var(--module-bg));
+}

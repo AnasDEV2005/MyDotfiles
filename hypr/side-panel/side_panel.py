@@ -15,7 +15,7 @@ from fabric.utils import invoke_repeater, get_relative_path
 
 
 def get_profile_picture_path() -> str | None:
-    path = os.path.expanduser("~/Pictures/Other/face.jpg")
+    path = os.path.expanduser("~/Downloads/profile.jpg")
     if not os.path.exists(path):
         path = os.path.expanduser("~/.face")
     if not os.path.exists(path):
@@ -30,7 +30,15 @@ class SidePanel(Window):
     @staticmethod
     def bake_progress_bar(name: str = "progress-bar", size: int = 64, **kwargs):
         return CircularProgressBar(
-            name=name, min_value=0, max_value=100, size=size, **kwargs
+            name=name, min_value=0, max_value=100, line_width=3, size=size, **kwargs
+        )
+    def bake_bat_bar(name: str = "bat-bar", size: int = 64, **kwargs):
+        return CircularProgressBar(
+            name="progress-bar", min_value=0, max_value=100, line_style='butt', size=size, **kwargs
+        )
+    def bake_disk_bar(name: str = "disk-bar", size: int = 64, **kwargs):
+        return CircularProgressBar(
+            name="progress-bar", min_value=0, max_value=100, pie=True, size=size, **kwargs
         )
 
     @staticmethod
@@ -42,7 +50,8 @@ class SidePanel(Window):
             layer="top",
             title="fabric-overlay",
             anchor="top left bottom",
-            margin="10px 10px 10px 0px",
+            margin="3px -3px 13px 3px",
+            keyboard_mode='on-demand',
             exclusivity="auto",
             visible=False,
             all_visible=False,
@@ -75,13 +84,13 @@ class SidePanel(Window):
         )
 
         self.greeter_label = Label(
-            label=f"Good {'Morning' if time.localtime().tm_hour < 12 else 'Afternoon'}, {os.getlogin().title()}!",
-            style="font-size: 20px;",
+            label="سبحان الله وبحمده \n  سبحان الله العظيم",
+            style="font-size: 18px; font-family: kawkab mono;",
         )
 
-        self.cpu_progress = self.bake_progress_bar()
+        self.disk_progress = self.bake_disk_bar()
         self.ram_progress = self.bake_progress_bar()
-        self.bat_circular = self.bake_progress_bar().build().set_value(42).unwrap()
+        self.bat_circular = self.bake_bat_bar().build().set_value(42).unwrap()
 
         self.progress_container = Box(
             name="progress-bar-container",
@@ -90,11 +99,10 @@ class SidePanel(Window):
                 Box(
                     children=[
                         Overlay(
-                            child=self.cpu_progress,
+                            child=self.disk_progress,
                             overlays=[
                                 self.bake_progress_icon(
-                                    label="",
-                                    style="margin-right: 8px; text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;",
+                                    label="",
                                 )
                             ],
                         ),
@@ -149,7 +157,7 @@ class SidePanel(Window):
         self.show_all()
 
     def update_status(self):
-        self.cpu_progress.value = psutil.cpu_percent()
+        self.disk_progress.value = psutil.disk_usage('/home').percent
         self.ram_progress.value = psutil.virtual_memory().percent
         if not (bat_sen := psutil.sensors_battery()):
             self.bat_circular.value = 42
