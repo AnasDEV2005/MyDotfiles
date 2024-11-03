@@ -37,8 +37,8 @@
             alpha(#345461, 0.9),
             alpha(var(--background), 0.7),
             var(--module-bg));
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     border-left: 0px;
     padding: 10px;
 }
@@ -50,6 +50,40 @@
     font-weight: 900;
     font-size: 28px;
 }
+
+#zebuttons {
+    padding: 8px 18px;
+    border-radius: 100px;
+    background-color: #5c9aab;
+}
+
+#stack_buttons {
+    background-color: #345461;
+    border-radius: 100px;
+    padding: 5px;
+    margin-left: 90px;
+    margin-right: 90px;
+}
+
+#zebuttons>label {
+    font-size: 1px;
+}
+
+#stack_buttons>button:hover {
+    background-color:#63d0ff;
+    transition: background 0.4s;
+
+}
+
+#stack_buttons>button.urgent {
+    background-color: #457d85 ;
+}
+
+#stack_buttons>button.active {
+    padding: 0px 10px;
+    background-color:#457d85;
+}
+
 
 #header {
     border: solid 1px var(--border-color);
@@ -89,3 +123,27 @@
     padding: 8px;
     box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.041);
 }
+
+
+#appslot {
+    padding: 15px;
+    background-color: #142329;
+}
+
+#search {
+    padding: 15px;
+    background-color: #30383b;
+}
+
+
+
+#appslot:hover {
+    background-color: #22343d;
+}
+
+button:hover {
+    background-color: #142129;
+    transition: background 0.4s;
+}
+
+

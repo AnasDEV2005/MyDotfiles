@@ -86,9 +86,10 @@ class NotificationWidget(Box):
                         lambda box, _: box.pack_end(
                             Button(
                                 name='close',
-                                child=Label(
-                                    name="close-symbolic",
-                                    label='☒',
+                                child=Image(
+                                    name="close-svg",
+                                    image_file="/home/geronimo/.config/hypr/icons/x.svg",
+                                    size=27,
                                 ),
                                 v_align="center",
                                 h_align="end",

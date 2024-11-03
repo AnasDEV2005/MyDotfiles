@@ -10,7 +10,7 @@
     color: var(--foreground);
     font-family: "kawkab mono";
 }
-
+ 
 #notificationbox {
     padding: 0.8rem;
     background-color: #31575c;
@@ -73,7 +73,6 @@ button {
 
 }
 
-button:hover {
-    background-color: rgba(143, 249, 255, 0.151);
-    border-radius: 3px;
+#close-svg {
+    color: #69edff;   
 }

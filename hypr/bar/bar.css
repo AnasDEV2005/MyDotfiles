@@ -63,7 +63,7 @@ button {
 
 #workspaces>button {
     padding: 0px 8px;
-    transition: padding 0.05s steps(8);
+    transition: padding 0.3s steps(8);
     background-color: var(--ws-inactive);
 }
 
@@ -72,7 +72,8 @@ button {
 }
 
 #workspaces>button:hover {
-    background-color: var(--ws-hover);
+    transition: background 0.3s steps(8);
+    background-color: var(--ws-active);
 }
 
 #workspaces>button.urgent {
