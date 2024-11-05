@@ -42,7 +42,12 @@
     font-size: 13px;
     border-radius: 3px;
 }
-
+#actiobutton>button:hover {
+    transition: color 0.3s;
+    color: #31575c;
+    font-size: 13px;
+    border-radius: 3px;
+}
 #notification {
     border: solid 3px #41ccdf;
     border-radius: 3px;
@@ -61,11 +66,12 @@
     font-size: 10px;
 }
 
-button {
+button:hover {
     padding: 0px 6px 3px 6px;
     font-size: 40px;
     font-weight: 600;
-    color: #69edff;
+    transition: color 0.3s;
+    color: #45868f;
 }
 
 #close-symbolic {

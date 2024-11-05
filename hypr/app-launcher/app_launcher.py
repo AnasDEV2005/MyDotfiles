@@ -9,6 +9,11 @@ the given utils and mainly how using lazy executors might
 make the configuration way more faster than it's supposed to be
 """
 
+
+# yeah so this is here cuz i havent set the side bar one
+# to update, so it might not have the new apps until 
+# u kill and rerun it, so this is still useful
+
 import operator
 from collections.abc import Iterator
 from fabric import Application

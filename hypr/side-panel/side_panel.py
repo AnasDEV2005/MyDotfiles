@@ -1,4 +1,7 @@
-"""side panel example, contains info about the system"""
+"""
+side panel, edited version of the side panel in fabric examples
+contains info about the system and a few tools, in webviews
+"""
 
 import os
 import time
@@ -108,7 +111,7 @@ class SidePanel(Window):
 
         self.progress_container = Box(
             name="progress-bar-container",
-            spacing=12,
+            spacing=25,
             children=[
                 Box(
                     children=[
@@ -117,7 +120,12 @@ class SidePanel(Window):
                             overlays=[
                                 self.bake_progress_icon(
                                     label="",
-                                )
+                                ),
+                                Image(
+                                    name="close-svg",
+                                    image_file="/home/geronimo/.config/hypr/icons/database.png",
+                                    size=27,
+                                ),
                             ],
                         ),
                     ],
@@ -129,9 +137,14 @@ class SidePanel(Window):
                             child=self.ram_progress,
                             overlays=[
                                 self.bake_progress_icon(
-                                    label="󰘚",
+                                    label="",
                                     style="margin-right: 4px; text-shadow: 0 0 10px #fff;",
-                                )
+                                ),
+                                Image(
+                                    name="close-svg",
+                                    image_file="/home/geronimo/.config/hypr/icons/cpu.png",
+                                    size=27,
+                                ),
                             ],
                         )
                     ]
@@ -143,9 +156,14 @@ class SidePanel(Window):
                             child=self.bat_circular,
                             overlays=[
                                 self.bake_progress_icon(
-                                    label="󱊣",
+                                    label="",
                                     style="margin-right: 0px; text-shadow: 0 0 10px #fff, 0 0 18px #fff;",
-                                )
+                                ),
+                                Image(
+                                    name="close-svg",
+                                    image_file="/home/geronimo/.config/hypr/icons/bat.png",
+                                    size=27,
+                                ),
                             ],
                         ),
                     ],
@@ -159,14 +177,14 @@ class SidePanel(Window):
         self.note = WebView(
             name='notes',
             url = "https://www.rapidtables.com/tools/notepad.html",
-            size = (190,680),
+            size = (290,680),
         )
 ## CHAT
 #############################################################
         self.chat = WebView(
             name='chat',
             url = "https://www.chatgpt.com",
-            size = (190,680),
+            size = (290,680),
         )
 ## APP LAUNCHER
 ##############################################################
@@ -182,8 +200,8 @@ class SidePanel(Window):
             on_button_press_event=print,
         )
         self.scrolled_window = ScrolledWindow(
-            min_content_size=(190, 320),
-            max_content_size=(190, 680),
+            min_content_size=(290, 320),
+            max_content_size=(290, 680),
             child=self.viewport,
         )
         self.box_apps = Box(
@@ -205,7 +223,13 @@ class SidePanel(Window):
                     self.scrolled_window,
                 ],
             )
-            
+## V CLOCK
+#############################################################
+        self.vclock = WebView(
+            name='vclock',
+            url = "https://www.vclock.com",
+            size = (190,680),
+        )           
 
 ## STACK OBJECT
 ##############################################################
@@ -213,7 +237,7 @@ class SidePanel(Window):
             name = "toolstack",
             transition_type="slide-left-right",
             transition_duration=500,
-            children=[self.note, self.chat, self.box_apps],
+            children=[self.note, self.chat, self.box_apps, self.vclock],
 
         )
 ## STACK CHILD SWITCH BUTTONS
@@ -225,7 +249,8 @@ class SidePanel(Window):
             children = [
                 Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.note),),
                 Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.chat),),
-                Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.box_apps),)
+                Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.box_apps),),
+                Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.vclock),),
             ]
         )
 

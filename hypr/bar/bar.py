@@ -28,6 +28,7 @@ if AUDIO_WIDGET is True:
         print(e)
         AUDIO_WIDGET = False
 
+# i havent touched volume stuff, ion rly need it
 
 class VolumeWidget(Box):
     def __init__(self, **kwargs):
@@ -70,7 +71,7 @@ class VolumeWidget(Box):
         )
         return
     
-
+# the top bar class
 
 class StatusBar(Window):
     @staticmethod
@@ -89,12 +90,12 @@ class StatusBar(Window):
             visible=False,
             all_visible=False,
         )
-        self.workspaces = Workspaces(
+        self.workspaces = Workspaces(       # workspaces
             name="workspaces",
             spacing=4,
             buttons_factory=lambda ws_id: WorkspaceButton(id=ws_id, label=None),
         )
-        self.active_window = ActiveWindow(name="hyprland-window")
+        self.active_window = ActiveWindow(name="hyprland-window")  # the middle title
         self.language = Language(
             formatter=FormattedString(
                 "{replace_lang(language)}",
@@ -107,6 +108,8 @@ class StatusBar(Window):
             ),
             name="hyprland-window",
         )
+
+        # the status info stuff + tray
         self.date_time = DateTime(name="date-time")
         self.system_tray = SystemTray(name="system-tray", spacing=4)
 
@@ -131,14 +134,7 @@ class StatusBar(Window):
 
 
 
-        self.power = Box(
-            name="widgets-container",
-            children=[
-                Button(
-                    child=Label(label="⏻", style="font-size: 20px;"),
-                    on_clicked= lambda *_: self.power_menu(self=self)),
-                    ],)
-                
+        # putting it all inside the side panel class        
       
 
         self.children = CenterBox(
@@ -164,7 +160,6 @@ class StatusBar(Window):
                     self.system_tray,
                     self.date_time,
                     self.language,
-                    self.power,
                 ],
             ),
         )
@@ -177,7 +172,7 @@ class StatusBar(Window):
         self.cpu_progress_bar.value = psutil.cpu_percent() / 100
         return True
 
-
+# running
 if __name__ == "__main__":
     bar = StatusBar()
     app = Application("bar", bar)
