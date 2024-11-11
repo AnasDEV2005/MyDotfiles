@@ -1,5 +1,5 @@
 :vars {
-    --background: #2e4954;
+    --background: #0f1416;
     --foreground: #63d0ff;
     --color0: #150d16;
     --color1: #7794c9;
@@ -34,8 +34,8 @@
 
     border-color: var(--color11);
     background: linear-gradient(90deg,
-            alpha(#345461, 0.9),
-            alpha(var(--background), 0.7),
+            alpha(#182024, 0.9),
+            alpha(var(--background), 0.9),
             var(--module-bg));
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -133,6 +133,14 @@
 #search {
     padding: 15px;
     background-color: #30383b;
+}
+
+#appbox {
+    padding-top: 5px;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    background-color: alpha(var(--background), 0.9);
 }
 
 

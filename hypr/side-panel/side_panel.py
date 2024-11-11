@@ -23,19 +23,7 @@ from fabric.widgets.image import Image
 from fabric.widgets.entry import Entry
 from fabric.widgets.scrolledwindow import ScrolledWindow
 from fabric.utils import DesktopApp, get_desktop_applications, idle_add, remove_handler, get_relative_path
-from fabric.utils import invoke_repeater, get_relative_path
-
-
-def get_profile_picture_path() -> str | None:
-    path = os.path.expanduser("~/Downloads/profile.jpg")
-    if not os.path.exists(path):
-        path = os.path.expanduser("~/.face")
-    if not os.path.exists(path):
-        logger.warning(
-            "can't fetch a user profile picture, add a profile picture image at ~/.face or at ~/Pictures/Other/profile.jpg"
-        )
-        path = None
-    return path
+from fabric.utils import invoke_repeater, get_relative_path, exec_shell_command
 
 #### S I D E   P A N E L ####
 
@@ -58,51 +46,24 @@ class SidePanel(Window):
     @staticmethod
     def bake_progress_icon(**kwargs):
         return Label(**kwargs).build().add_style_class("progress-icon").unwrap()
+    
+
 
     def __init__(self, **kwargs):
         super().__init__(
-            layer="top",
+            layer="overlay",
             title="fabric-overlay",
             anchor="top left bottom",
-            margin="0px 0px 0px 0px",
+            margin="10px 0px 10px 0px",
             keyboard_mode='on-demand',
             exclusivity="auto",
+            size=(500, 800),
             visible=False,
             all_visible=False,
             **kwargs,
         )
-## HEADER
-#########################################################################################################
-        self.profile_pic = Box(
-            name="profile-pic",
-            style=f"background-image: url(\"file://{get_profile_picture_path() or ''}\")",
-        )
-        self.uptime_label = Label(label=f"{self.get_current_uptime()}")
 
-        self.header = Box(
-            spacing=14,
-            name="header",
-            orientation="h",
-            children=[
-                self.profile_pic,
-                Box(
-                    orientation="v",
-                    children=[
-                        DateTime(
-                            name="date-time",
-                            style="margin-top: 4px; min-width: 180px;",
-                        ),
-                        self.uptime_label,
-                    ],
-                ),
-            ],
-        )
-## GREETER
-######################################################################################################
-        self.greeter_label = Label(
-            label="سبحان الله وبحمده \n  سبحان الله العظيم",
-            style="font-size: 18px; font-family: kawkab mono;",
-        )
+
 ## STATUS BARS
 #############################################################################################################################
         self.disk_progress = self.bake_disk_bar()
@@ -112,6 +73,7 @@ class SidePanel(Window):
         self.progress_container = Box(
             name="progress-bar-container",
             spacing=25,
+            orientation="v",
             children=[
                 Box(
                     children=[
@@ -130,7 +92,6 @@ class SidePanel(Window):
                         ),
                     ],
                 ),
-                Box(name="progress-bar-sep"),
                 Box(
                     children=[
                         Overlay(
@@ -149,7 +110,6 @@ class SidePanel(Window):
                         )
                     ]
                 ),
-                Box(name="progress-bar-sep"),
                 Box(
                     children=[
                         Overlay(
@@ -177,15 +137,41 @@ class SidePanel(Window):
         self.note = WebView(
             name='notes',
             url = "https://www.rapidtables.com/tools/notepad.html",
-            size = (290,680),
+            size = (400,900),
         )
+        self.window_note = Window(
+                name="appslauncher",
+                layer="overlay",
+                title="fabric-overlay",
+                anchor="top left bottom",
+                margin="0px 0px 0px 0px",
+                keyboard_mode='on-demand',
+                exclusivity="auto",
+                visible=False,
+                all_visible=False,
+                size=(400, 800),
+                child=self.note,
+            )
 ## CHAT
 #############################################################
         self.chat = WebView(
             name='chat',
-            url = "https://www.chatgpt.com",
-            size = (290,680),
+            url = "https://chatgpt.com",
+            size = (400,900),
         )
+        self.window_chat = Window(
+                name="appslauncher",
+                layer="overlay",
+                title="fabric-overlay",
+                anchor="top left bottom",
+                margin="0px 0px 0px 0px",
+                keyboard_mode='on-demand',
+                exclusivity="auto",
+                visible=False,
+                all_visible=False,
+                size=(400, 800),
+                child=self.chat,
+            )
 ## APP LAUNCHER
 ##############################################################
         self._arranger_handler: int = 0
@@ -200,79 +186,152 @@ class SidePanel(Window):
             on_button_press_event=print,
         )
         self.scrolled_window = ScrolledWindow(
-            min_content_size=(290, 320),
-            max_content_size=(290, 680),
+            min_content_size=(300, 320),
+            max_content_size=(300, 800),
             child=self.viewport,
         )
-        self.box_apps = Box(
-                name="appslauncher",
-                spacing=10,
-                orientation="v",
-                style="margin: 2px",
-                children=[
-                    # the header with the search entry
+        self.appbox = Box(
+            name="appbox",
+            orientation="v",
+            children=[
                     Box(
                         spacing=2,
                         orientation="h",
                         children=[
-                            self.search_entry
-                            ,
+                            self.search_entry,
                         ],
                     ),
                     # the actual slots holder
                     self.scrolled_window,
                 ],
-            )
-## V CLOCK
-#############################################################
-        self.vclock = WebView(
-            name='vclock',
-            url = "https://www.vclock.com",
-            size = (190,680),
-        )           
-
-## STACK OBJECT
-##############################################################
-        self.tools = Stack(
-            name = "toolstack",
-            transition_type="slide-left-right",
-            transition_duration=500,
-            children=[self.note, self.chat, self.box_apps, self.vclock],
-
         )
-## STACK CHILD SWITCH BUTTONS
-#############################################################
-        self.switch_tool = Box(
-            name = 'stack_buttons',
-            orientation = 'h',
-            spacing = 7,
-            children = [
-                Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.note),),
-                Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.chat),),
-                Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.box_apps),),
-                Button(name="zebuttons",label=" ", on_clicked=lambda *_: self.tools.set_visible_child(self.vclock),),
+        self.window_apps = Window(
+                name="appslauncher",
+                layer="overlay",
+                title="fabric-overlay",
+                anchor="top left bottom",
+                margin="0px 0px 0px 0px",
+                keyboard_mode='on-demand',
+                exclusivity="auto",
+                visible=False,
+                all_visible=False,
+                size=(400, 800),
+                child=self.appbox,
+            )
+
+##################### TOOLS BUTTONS ########################################################################3        
+
+        self.buttons = Box(
+            orientation='v',
+            style="margin-top:30px;",
+            spacing=30,
+            children=[
+            Button(name='apps',
+                    child=Image(
+                        name="apps",
+                        image_file="/home/geronimo/.config/hypr/icons/squares-four.png",
+                        size=38,
+                    ),
+
+                    on_clicked=lambda *_: self.toggle_window_app(),
+                ),
+            Button(name='note',
+                    child=Image(
+                        name="apps",
+                        image_file="/home/geronimo/.config/hypr/icons/notepad.png",
+                        size=38,
+                    ),
+
+                    on_clicked=lambda *_: self.toggle_window_note(),
+                ),
+            Button(name='chat',
+                    child=Image(
+                        name="apps",
+                        image_file="/home/geronimo/.config/hypr/icons/chat-text.png",
+                        size=38,
+                    ),
+
+                    on_clicked=lambda *_: self.toggle_window_chat(),
+                ),
             ]
         )
+         
 
 
-## idk lol
-        self.update_status()
-        invoke_repeater(
-            15 * 60 * 1000,  # every 15min
-            lambda: (self.uptime_label.set_label(self.get_current_uptime()), True)[1],
+        self.toolbox = Box(
+            children=[self.window_apps, self.note, self.chat],
         )
-        invoke_repeater(1000, self.update_status)
+        self.sidebar = Box(
+            name="window-inner",
+            orientation="v",
+            spacing=15,
+            children=[self.progress_container,self.buttons],
+        )
+        self.sidepanel = Box(
+                name="maaan",
+                orientation='h',
+                children=[self.toolbox, self.sidebar],
+            )
         self.add(
-            Box(
-                name="window-inner",
-                orientation="v",
-                spacing=15,
-                children=[self.header, self.greeter_label, self.progress_container, self.switch_tool, self.tools],
-            ),
+            self.sidepanel
         )
-        self.show_all()
 
-## APP LAUNCHER FUNTIONS
+        self.update_status()
+        self.show_all()
+        self.toolbox.hide()
+
+
+
+
+## some more functiona
+    def update_status(self):
+        self.disk_progress.value = psutil.disk_usage('/home').percent
+        self.ram_progress.value = psutil.virtual_memory().percent
+        if not (bat_sen := psutil.sensors_battery()):
+            self.bat_circular.value = 42
+        else:
+            self.bat_circular.value = bat_sen.percent
+
+        return True
+
+    def get_current_uptime(self):
+        uptime = time.time() - psutil.boot_time()
+        uptime_days, remainder = divmod(uptime, 86400)
+        uptime_hours, remainder = divmod(remainder, 3600)
+        # uptime_minutes, _ = divmod(remainder, 60)
+        return f"{int(uptime_days)} {'days' if uptime_days > 1 else 'day'}, {int(uptime_hours)} {'hours' if uptime_hours > 1 else 'hour'}"
+    
+    def toggle_window_chat(self):
+        if self.window_chat.is_visible(): self.window_chat.hide()
+        elif self.window_note.is_visible(): 
+            self.window_note.hide()
+            self.window_chat.show()
+        elif self.window_apps.is_visible(): 
+            self.window_apps.hide()
+            self.window_chat.show()
+        else: self.window_chat.show()
+
+    def toggle_window_note(self):
+        if self.window_note.is_visible(): self.window_note.hide()
+        elif self.window_apps.is_visible(): 
+            self.window_apps.hide()
+            self.window_note.show()
+        elif self.window_chat.is_visible(): 
+            self.window_chat.hide()
+            self.window_note.show()
+        else: self.window_note.show()
+
+    def toggle_window_app(self):
+        if self.window_apps.is_visible(): self.window_apps.hide()
+        elif self.window_note.is_visible(): 
+            self.window_note.hide()
+            self.window_apps.show()
+        elif self.window_chat.is_visible(): 
+            self.window_note.hide()
+            self.window_apps.show()
+        else: self.window_apps.show()
+
+
 
     def arrange_viewport(self, query: str = ""):
         # reset everything so we can filter current viewport's slots...
@@ -339,31 +398,10 @@ class SidePanel(Window):
                 ],
             ),
             tooltip_text=app.description,
-            on_clicked=lambda *_: (app.launch()),
+            on_clicked=lambda *_: (app.launch(), self.window_apps.hide()),
             **kwargs,
-        )
-
-
-
-
-## some more functiona
-    def update_status(self):
-        self.disk_progress.value = psutil.disk_usage('/home').percent
-        self.ram_progress.value = psutil.virtual_memory().percent
-        if not (bat_sen := psutil.sensors_battery()):
-            self.bat_circular.value = 42
-        else:
-            self.bat_circular.value = bat_sen.percent
-
-        return True
-
-    def get_current_uptime(self):
-        uptime = time.time() - psutil.boot_time()
-        uptime_days, remainder = divmod(uptime, 86400)
-        uptime_hours, remainder = divmod(remainder, 3600)
-        # uptime_minutes, _ = divmod(remainder, 60)
-        return f"{int(uptime_days)} {'days' if uptime_days > 1 else 'day'}, {int(uptime_hours)} {'hours' if uptime_hours > 1 else 'hour'}"
-
+        )                
+        
 
 if __name__ == "__main__":
     side_panel = SidePanel()

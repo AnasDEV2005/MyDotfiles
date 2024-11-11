@@ -67,9 +67,6 @@
 }
 
 button:hover {
-    padding: 0px 6px 3px 6px;
-    font-size: 40px;
-    font-weight: 600;
     transition: color 0.3s;
     color: #45868f;
 }
