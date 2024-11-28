@@ -1,0 +1,5 @@
+2024/11/27-10:27:47.864 105202 Reusing MANIFEST /home/geronimo/.config/vesktop/sessionData/Local Storage/leveldb/MANIFEST-000001
+2024/11/27-10:27:47.868 105202 Recovering log #3817
+2024/11/27-10:27:47.868 105202 Reusing old log /home/geronimo/.config/vesktop/sessionData/Local Storage/leveldb/003817.log 
+2024/11/27-10:28:17.516 105206 Level-0 table #3822: started
+2024/11/27-10:28:17.518 105206 Level-0 table #3822: 169749 bytes OK

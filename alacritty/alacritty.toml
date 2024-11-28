@@ -1,0 +1,69 @@
+# Alacritty configuration file in TOML format
+
+[window]
+# Window dimensions (changes require restart)
+# Specified in character columns and lines, not pixels.
+dimensions = { columns = 120, lines = 30 }
+dynamic_padding = true
+# Window padding (in pixels)
+padding = { x = 30, y = 30 }
+decorations = "Full"
+# Startup mode: "Windowed", "Maximized", "Fullscreen"
+startup_mode = "Windowed"
+opacity = 0.98
+decorations_theme_variant = "Dark"
+resize_increments = true
+
+
+[font]
+# Font family and size
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "Kawkab Mono", style = "Bold" }
+size = 11.0
+
+[colors]
+[colors.primary]
+background = "#060b0a"
+foreground = "#66D6FF"
+dim_foreground = "#3B8996"
+bright_foreground = "#A3DEE8"
+
+[colors.cursor]
+text = "#66D6FF"
+cursor = "#66D6FF"
+
+[colors.selection]
+text = "#92C0FF"
+background = "#0BA3B7"
+
+[colors.normal]
+black   = "#CBE0E4"
+red     = "#A120D2"
+green   = "#20D2A3"
+yellow  = "#d22052"
+blue    = "#20B0D2"
+magenta = "#4620D2"
+cyan    = "#71B2F7"
+white   = "#222427"
+
+[colors.bright]
+black   = "#FFFFFF"
+red     = "#C06BE0"
+green   = "#7BF3D2"
+yellow  = "#F986A6"
+blue    = "#74E1FB"
+magenta = "#A48EF5"
+cyan    = "#B9DAFD"
+white   = "#7C8696"
+
+
+[scrolling]
+# Maximum number of lines in the scrollback buffer.
+history = 10000
+
+[bell]
+animation = "EaseOutExpo"
+duration = 5
+color = "#7BF3D2"
+
+

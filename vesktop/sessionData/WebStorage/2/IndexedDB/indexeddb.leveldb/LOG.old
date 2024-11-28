@@ -1,0 +1,15 @@
+2024/11/25-18:07:33.096 4dd Reusing MANIFEST /home/geronimo/.config/vesktop/sessionData/WebStorage/2/IndexedDB/indexeddb.leveldb/MANIFEST-000001
+2024/11/25-18:07:33.096 4dd Recovering log #19
+2024/11/25-18:07:33.099 4dd Reusing old log /home/geronimo/.config/vesktop/sessionData/WebStorage/2/IndexedDB/indexeddb.leveldb/000019.log 
+2024/11/25-18:10:03.704 4de Level-0 table #24: started
+2024/11/25-18:10:03.706 4de Level-0 table #24: 102201 bytes OK
+2024/11/25-18:10:03.707 4de Delete type=0 #19
+2024/11/25-18:10:03.708 4de Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2024/11/25-18:10:03.708 4de Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x02\x01\x1f\x04\x03\x01\x03\x00N\x00E\x00W\x03\x00\x00\x00\x00\x00\x00L@\x03\x000\xa1\xafD6yB\x00\x03\x00\x00\x00\x00\x00\x80X@' @ 2874 : 1
+2024/11/25-18:10:03.708 4de Compacting 1@1 + 1@2 files
+2024/11/25-18:10:03.709 4de Generated table #25@1: 59 keys, 1344 bytes
+2024/11/25-18:10:03.709 4de Compacted 1@1 + 1@2 files => 1344 bytes
+2024/11/25-18:10:03.710 4de compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/11/25-18:10:03.710 4de Delete type=2 #21
+2024/11/25-18:10:03.710 4de Delete type=2 #24
+2024/11/25-18:10:03.711 4de Manual compaction at level-1 from '\x00\x02\x01\x1f\x04\x03\x01\x03\x00N\x00E\x00W\x03\x00\x00\x00\x00\x00\x00L@\x03\x000\xa1\xafD6yB\x00\x03\x00\x00\x00\x00\x00\x80X@' @ 2874 : 1 .. (end); will stop at (end)

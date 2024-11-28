@@ -1,0 +1,92 @@
+:vars {
+    --foreground: rgb(255, 255, 255);
+    --background: rgb(26, 28, 30);
+    --border-color: rgb(42, 43, 45);
+    --button-color: var(--border-color);
+}
+
+* {
+    all: unset;
+    color: var(--foreground);
+    font-family: "kawkab mono";
+}
+ 
+#notificationbox {
+    padding: 0.8rem;
+    background-color: #31575c;
+    border: solid 3px #41ccdf;
+    border-radius: 3px;
+}
+
+#notificationflameshot {
+    padding: 0.8rem;
+    background-color: #8038b1;
+    border: solid 3px #41ccdf;
+    border-radius: 3px;
+}
+
+#notificationbrave {
+    padding: 0.8rem;
+    background-color: #cf6a3b;
+    border: solid 3px #41ccdf;
+    border-radius: 3px;
+}
+
+#notificationvesktop {
+    padding: 0.8rem;
+    background-color: #7289da;
+    border: solid 3px #41ccdf;
+    border-radius: 3px;
+}
+
+#action {
+    background-color: rgba(55, 95, 95, 0.877);
+    font-size: 13px;
+    border-radius: 3px;
+}
+
+#actiobutton {
+    color: #31575c;
+    font-size: 13px;
+    border-radius: 3px;
+}
+#actiobutton>button:hover {
+    transition: color 0.3s;
+    color: #31575c;
+    font-size: 13px;
+    border-radius: 3px;
+}
+
+#notif>button:active {
+    margin-right: -500px;
+    padding-right: 0px;
+    padding-left: 300px;
+    transition: all 1s ease-out;
+}
+
+
+
+#notification .summary {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#notification .body {
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+button:hover {
+    transition: color 0.3s;
+    color: #45868f;
+}
+
+#close-symbolic {
+    color: #69edff;
+
+}
+
+#close-svg {
+    color: #69edff;   
+}

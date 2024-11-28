@@ -1,0 +1,132 @@
+:vars {
+    --background: #0f1416;
+    --foreground: #89cdd2;
+    --color0: #150d16;
+    --color1: #7794c9;
+    --color2: #9C5995;
+    --color3: #5c9aab;
+    --color4: #9A62F3;
+    --color5: #E075DF;
+    --color6: #F98F9F;
+    --color7: #f5dbc4;
+    --color8: #9dc7e0;
+    --color9: #244a4f;
+    --color10: #9C5995;
+    --color11: #69edff;
+    --color12: #7794c9;
+    --color13: #E075DF;
+    --color14: #F98F9F;
+    --color15: #f5dbc4;
+    --window-bg: alpha(var(--background), 0.9);
+    --module-bg: alpha(var(--background), 0.8);
+    --border-color: var(--color11);
+}
+
+* {
+    all: unset;
+    font-family: "Jost*";
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--foreground);
+}
+
+#window-inner {
+
+    border-right: solid 1px #89cdd2;
+    border-top: solid 1px #89cdd2;
+    border-bottom: solid 1px #89cdd2;
+    background: linear-gradient(90deg,
+            alpha(#182024, 0.9),
+            alpha(var(--background), 0.9),
+            var(--module-bg));
+    padding: 10px;
+}
+#powermenu {
+
+    border-color: var(--color11);
+    background: alpha(var(--background), 1);
+    border-radius: 2px;
+    padding: 20px;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+
+
+#date-time>label {
+    font-weight: 900;
+    font-size: 28px;
+}
+
+
+
+
+
+
+#header {
+    border: solid 1px var(--border-color);
+    border-radius: 8px;
+    background: var(--module-bg);
+}
+
+#profile-pic {
+    background-color: alpha(var(--color11), 0.2);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 6px;
+    padding: 32px;
+    margin: 4px;
+}
+
+#progress-bar {
+    color: var(--module-bg);
+    background-color: #457d85;
+    border: solid 10px #89cdd2;
+}
+
+#progress-bar-sep {
+    padding: 4px;
+    margin: 16px 0px;
+    border-radius: 100px;
+    background-color: var(--module-bg);
+}
+
+#progress-bar-container {
+    background-color: var(--module-bg);
+    border-radius: 100px;
+    padding: 8px;
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.041);
+}
+
+
+#appslot {
+    padding: 15px;
+    background-color: #142329;
+}
+
+#search {
+    padding: 15px;
+    background-color: #30383b;
+}
+
+#appbox {
+    padding-top: 5px;
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    background-color: alpha(var(--background), 0.9);
+}
+
+
+
+#appslot:hover {
+    background-color: #22343d;
+}
+
+button:hover {
+    background-color: #142129;
+    transition: background 0.4s;
+}
+
+
