@@ -169,26 +169,7 @@ class SidePanel(Window):
                 size=(300, 800),
                 child=self.note,
             )
-## CHAT
-#############################################################
-        self.chat = WebView(
-            name='chat',
-            url = "https://chatgpt.com",
-            size = (400,900),
-        )
-        self.window_chat = Window(
-                name="window-inner",
-                layer="overlay",
-                title="fabric-overlay",
-                anchor="top left bottom",
-                margin="10px 0px 10px 0px",
-                keyboard_mode='on-demand',
-                exclusivity="auto",
-                visible=False,
-                all_visible=False,
-                size=(400, 800),
-                child=self.chat,
-            )
+
 ## POWER MENU
 #############################################################
         self.powermenu = Box(
@@ -327,16 +308,6 @@ class SidePanel(Window):
 
                     on_clicked=lambda *_: self.toggle_window_note(),
                 ),
-            Button(name='chat',
-                   style='padding-top:7px ; padding-bottom:7px ;',
-                    child=Image(
-                        name="apps",
-                        image_file="/home/geronimo/.config/hypr/icon/chat-text.png",
-                        size=38,
-                    ),
-
-                    on_clicked=lambda *_: self.toggle_window_chat(),
-                ),
             Button(name='powermenubutton',
                    style='padding-top:7px ; padding-bottom:7px ;',
                     child=Image(
@@ -350,7 +321,6 @@ class SidePanel(Window):
             ]
         )
          
-
 
 
         self.sidebar = Box(
@@ -396,23 +366,12 @@ class SidePanel(Window):
 
 
 
-    def toggle_window_chat(self):
-        if self.window_chat.is_visible(): self.window_chat.hide()
-        elif self.window_note.is_visible(): 
-            self.window_note.hide()
-            self.window_chat.show()
-        elif self.window_apps.is_visible(): 
-            self.window_apps.hide()
-            self.window_chat.show()
-        else: self.window_chat.show()
+
 
     def toggle_window_note(self):
         if self.window_note.is_visible(): self.window_note.hide()
         elif self.window_apps.is_visible(): 
             self.window_apps.hide()
-            self.window_note.show()
-        elif self.window_chat.is_visible(): 
-            self.window_chat.hide()
             self.window_note.show()
         else: self.window_note.show()
 
@@ -420,9 +379,6 @@ class SidePanel(Window):
         if self.window_apps.is_visible(): self.window_apps.hide()
         elif self.window_note.is_visible(): 
             self.window_note.hide()
-            self.window_apps.show()
-        elif self.window_chat.is_visible(): 
-            self.window_chat.hide()
             self.window_apps.show()
         else: self.window_apps.show()
 

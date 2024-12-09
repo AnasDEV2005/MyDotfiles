@@ -21,7 +21,7 @@ from fabric.utils import DesktopApp, get_desktop_applications, idle_add, remove_
 from fabric.utils import invoke_repeater, get_relative_path
 
 def get_profile_picture_path() -> str | None:
-    path = os.path.expanduser("~/Downloads/profile.jpg")
+    path = os.path.expanduser("~/.config/hypr/antman.png")
     if not os.path.exists(path):
         path = os.path.expanduser("~/.face")
     if not os.path.exists(path):
@@ -58,7 +58,7 @@ class Overview(Window):
             layer="overlay",
             pass_through=True,
             title="fabric-overlay",
-            anchor="top left",
+            anchor="top",
             margin="16px 0px 0px 16px",
             exclusivity="normal",
             visible=False,
@@ -70,38 +70,62 @@ class Overview(Window):
 #########################################################################################################
         self.profile_pic = Box(
             name="profile-pic",
+            size=300,
             style=f"background-image: url(\"file://{get_profile_picture_path() or ''}\")",
         )
         self.uptime_label = Label(label=f"{self.get_current_uptime()}")
-
+        self.greet = Box(
+            orientation="v",
+            name = "greet",
+            children= [
+                Label(
+                    name = "big-greet",
+                    label = "Welcome, to my Soul Society",
+                    ),
+                Label(
+                    name = "small-greet",
+                    label = "I wanna dunk.",
+                )
+            ],
+        )
         self.header = Box(
             spacing=14,
-            name="header",
+            name="header-inner",
             orientation="h",
             children=[
                 self.profile_pic,
                 Box(
                     orientation="v",
                     children=[
-                        DateTime(
-                            name="date-time",
-                            style="margin-top: 4px; min-width: 180px;",
-                        ),
-                        self.uptime_label,
+                        self.greet,
                     ],
                 ),
             ],
         )
         self.close_butt = Button(
-            name="close",
-            child= Image(image_file='/home/geronimo/.config/hypr/icon/power.png'),
-            size= 5,
+            name="close-header",
+            child= Label(name ="x", label='X'),
             on_clicked = lambda *_: self.close(),
+        )
+        self.bottom = Box(
+            orientation="h",
+            children = [
+                Box(
+                    orientation="v",
+                    children= [
+                        DateTime(
+                            name="date-time",
+                            style="margin-top: 4px; min-width: 180px;",
+                        ),
+                    self.uptime_label]),
+                self.close_butt
+            ]
         )
         self.add(
             Box(
+                orientation="v",
                 name="header",
-                children=[self.header, self.close_butt],
+                children=[self.header, self.bottom],
             ),
         )
         self.show_all()

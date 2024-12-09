@@ -75,9 +75,9 @@ return {
     },
     -- right click menu
     { "nvzone/volt" , lazy = true },
-    { "nvzone/menu" , lazy = true },
+--    { "nvzone/menu" , lazy = true },
 
-    -- todo comment
+  -- todo comment
     {
       "folke/todo-comments.nvim",
       lazy = false,

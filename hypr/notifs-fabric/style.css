@@ -8,79 +8,39 @@
 * {
     all: unset;
     color: var(--foreground);
-    font-family: "kawkab mono";
+    font-family: "jetbrains mono";
 }
  
-#notificationbox {
+#notification-box {
     padding: 0.8rem;
-    background-color: #31575c;
-    border: solid 3px #41ccdf;
-    border-radius: 3px;
+    background-color: #0f1416;
+    border: solid 1px #41ccdf;
+    border-radius: 1px;
 }
 
-#notificationflameshot {
-    padding: 0.8rem;
-    background-color: #8038b1;
-    border: solid 3px #41ccdf;
-    border-radius: 3px;
-}
 
-#notificationbrave {
-    padding: 0.8rem;
-    background-color: #cf6a3b;
-    border: solid 3px #41ccdf;
-    border-radius: 3px;
-}
-
-#notificationvesktop {
-    padding: 0.8rem;
-    background-color: #7289da;
-    border: solid 3px #41ccdf;
-    border-radius: 3px;
-}
-
-#action {
-    background-color: rgba(55, 95, 95, 0.877);
-    font-size: 13px;
-    border-radius: 3px;
-}
-
-#actiobutton {
-    color: #31575c;
-    font-size: 13px;
-    border-radius: 3px;
-}
-#actiobutton>button:hover {
-    transition: color 0.3s;
-    color: #31575c;
-    font-size: 13px;
-    border-radius: 3px;
-}
 
 #notif>button:active {
     margin-right: -500px;
     padding-right: 0px;
     padding-left: 300px;
-    transition: all 1s ease-out;
 }
 
 
-
+#notification-title-circular-progress-bar {
+  color: #41ccdf;
+}
 #notification .summary {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
 }
 
 #notification .body {
     color: #ffffff;
     font-weight: normal;
-    font-size: 10px;
+    font-size: 15px;
 }
 
-button:hover {
-    transition: color 0.3s;
-    color: #45868f;
-}
 
 #close-symbolic {
     color: #69edff;
