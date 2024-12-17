@@ -41,6 +41,24 @@
             var(--module-bg));
     padding: 10px;
 }
+
+
+#inside-box {
+    margin: 10px;
+    padding : 13px;
+    border-color: #9dc7e0;
+    border-width: 2px;
+    background-color: #171e21;
+    border-radius: 2px;
+}
+
+#memlabels {
+    font-weight: 500;
+    font-size: 14px;
+
+}
+
+
 #powermenu {
 
     border-color: var(--color11);
@@ -71,7 +89,7 @@
 }
 
 
-#header {
+#hq {
     padding: 16px;
     border: solid 1px var(--border-color);
     border-radius: 1px;

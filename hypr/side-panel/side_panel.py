@@ -7,7 +7,6 @@ import os
 import time
 import psutil
 import operator
-import header
 from collections.abc import Iterator
 from loguru import logger
 from fabric import Application
@@ -25,6 +24,7 @@ from fabric.widgets.entry import Entry
 from fabric.widgets.scrolledwindow import ScrolledWindow
 from fabric.utils import DesktopApp, get_desktop_applications, idle_add, remove_handler, get_relative_path
 from fabric.utils import invoke_repeater, get_relative_path, exec_shell_command
+import subprocess
 
 
 
@@ -39,8 +39,8 @@ def get_profile_picture_path() -> str | None:
         path = None
     return path
 def run_overview_widget():
-    if header.Overview().is_visible() == False: 
-        header.Overview().show()
+    subprocess.run(["chmod", "+x", "/home/geronimo/.config/hypr/toggle_overview.sh"], check=True)
+    subprocess.run(["/home/geronimo/.config/hypr/toggle_overview.sh"], check=True)
 
 
 

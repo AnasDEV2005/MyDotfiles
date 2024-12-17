@@ -8,7 +8,7 @@
 * {
     all: unset;
     color: var(--foreground);
-    font-family: "jetbrains mono";
+    font-family: "newfont";
 }
  
 #notification-box {
