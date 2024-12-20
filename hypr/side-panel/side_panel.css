@@ -88,6 +88,11 @@
   margin-left: 600px;
 }
 
+#mem-bar {
+    color: var(--module-bg);
+    background-color: #457d85;
+    border: solid 10px #89cdd2;
+}
 
 #hq {
     padding: 16px;

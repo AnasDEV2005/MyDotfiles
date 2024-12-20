@@ -39,6 +39,23 @@
 }
 
 
+#main-window {
+    opacity: 0;
+}
+
+#main-window.visible {
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;   
+}
+
+#main-window.fade-out {
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;   
+}
+
+
+
+
 #container {
     padding-top: 200px;
     font-weight: 900;

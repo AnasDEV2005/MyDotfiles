@@ -361,7 +361,7 @@ class SidePanel(Window):
         uptime_days, remainder = divmod(uptime, 86400)
         uptime_hours, remainder = divmod(remainder, 3600)
         # uptime_minutes, _ = divmod(remainder, 60)
-        return f"{int(uptime_days)} {'days' if uptime_days > 1 else 'day'}, {int(uptime_hours)} {'hours' if uptime_hours > 1 else 'hour'}"
+        return f"{int(uptime_days)} {'days' if uptime_days > 0 else 'day'}, {int(uptime_hours)} {'hours' if uptime_hours > 1 else 'hour'}"
     
 
 

@@ -194,8 +194,8 @@ class NotificationBox(Box):
                                 ),
                                 Label(
                                     label=(
-                                        notification.body[:33]
-                                        + (notification.body[30:] and "...")
+                                        notification.body[:25]
+                                        + (notification.body[25:] and "...")
                                     ),
                                     max_chars_width=40,
                                     h_align="start",
@@ -204,6 +204,7 @@ class NotificationBox(Box):
                         ),
                     ],
                 ),
+
             ],
         )
 

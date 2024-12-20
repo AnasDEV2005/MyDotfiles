@@ -48,7 +48,7 @@ def parse_memory(output):
         blocks = "█" * int(mem_usage // 0.9)
         
         # Append as a tuple (COMMAND, blocks)
-        parsed_lines.append((command, blocks))
+        parsed_lines.append((command, mem_usage))
     
     newl = []
     for i in range(0, len(parsed_lines)-1):
@@ -82,17 +82,9 @@ def get_profile_picture_path() -> str | None:
 
 class Overview(Window):
     @staticmethod
-    def bake_progress_bar(name: str = "progress-bar", size: int = 64, **kwargs):
+    def bake_progress_bar(value,**kwargs):
         return CircularProgressBar(
-            name=name, min_value=0, max_value=100, line_width=3, size=size, **kwargs
-        )
-    def bake_bat_bar(name: str = "bat-bar", size: int = 64, **kwargs):
-        return CircularProgressBar(
-            name="progress-bar", min_value=0, max_value=100, line_style='butt', size=size, **kwargs
-        )
-    def bake_disk_bar(name: str = "disk-bar", size: int = 64, **kwargs):
-        return CircularProgressBar(
-            name="progress-bar", min_value=0, max_value=100, pie=True, size=size, **kwargs
+            name="mem-bar", min_value=0, max_value=100, line_width=3, line_style="butt", size=24, value=value,**kwargs
         )
 
     @staticmethod
@@ -114,6 +106,15 @@ class Overview(Window):
             all_visible=False,
             **kwargs,
         )
+
+
+
+
+
+
+
+
+
 
 ## HEADER
 #########################################################################################################
@@ -138,15 +139,14 @@ class Overview(Window):
             ],
         )
 
-        spaces = max(memory)
-        s = int(len(spaces[1])+len(spaces[0]))+1
+ 
         self.memory = Box(orientation = "v",
             children = [ Label(label = "MEMORY USAGE", style = "font-weight: 800;"),
 
         Box(
             name = "inside-box",
             orientation = "h",
-            spacing = 3,
+            spacing = 8,
             children = [Box(
                         h_align ="start",
                         v_align = "start",
@@ -169,16 +169,17 @@ class Overview(Window):
                         v_align = "start",
                         orientation="v",
                         spacing = 5,
-                        children = [ 
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[0][1]), 
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[1][1]), 
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[2][1]),
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[3][1]),
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[4][1]),
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[5][1]), 
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[6][1]),
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[7][1]),
-                        Label(v_align = "start", h_align = "start",name="memlabels", label = memory[8][1]),]
+                        children = [
+                        self.bake_progress_bar(memory[0][1]),
+                        self.bake_progress_bar(memory[1][1]),
+                        self.bake_progress_bar(memory[2][1]),
+                        self.bake_progress_bar(memory[3][1]),
+                        self.bake_progress_bar(memory[4][1]),
+                        self.bake_progress_bar(memory[5][1]),
+                        self.bake_progress_bar(memory[6][1]),
+                        self.bake_progress_bar(memory[7][1]),
+                        self.bake_progress_bar(memory[8][1]),
+                        ]
                         )
                     ]
             )
@@ -261,6 +262,11 @@ class Overview(Window):
             ]
             )
         )
+
+
+        invoke_repeater(3000, self.update_membars)
+        
+
         self.show_all()
         self.hq.hide()
 
@@ -270,7 +276,14 @@ class Overview(Window):
 
 
 
-
+    def update_membars(self, *args):
+        output = os.popen("ps -eo pid,comm,%mem --sort=-%mem | head -n 10").read()
+        memory = parse_memory(output)
+        for i in range(0, 8):
+            self.memory.children[1].children[0].children[i].set_label(memory[i][0])
+        for i in range(0, 8):
+            self.memory.children[1].children[1].children[i].value = memory[i][1]
+        return True
 
 ## some more functions
     def close_widget(self):
