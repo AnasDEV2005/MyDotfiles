@@ -10,15 +10,15 @@ padding = { x = 30, y = 30 }
 decorations = "Full"
 # Startup mode: "Windowed", "Maximized", "Fullscreen"
 startup_mode = "Windowed"
-opacity = 0.98
+opacity = 0.9
 decorations_theme_variant = "Dark"
 resize_increments = true
 
 
 [font]
 # Font family and size
-normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
-bold = { family = "Kawkab Mono", style = "Bold" }
+normal = { family = "newfont", style = "Regular" }
+bold = { family = "newfont", style = "Bold" }
 size = 11.0
 
 [colors]
