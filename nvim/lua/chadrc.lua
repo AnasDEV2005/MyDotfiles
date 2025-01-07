@@ -10,7 +10,7 @@ local options = {
     treesitter = {
       ["@variable"] = { fg = "#000000" },
     },
-    theme = "dark_horizon",
+    theme = "bearded-arc",
     theme_toggle = {"dark_horizon", "bearded-arc"},
     transparency = true,
     hl_override = {

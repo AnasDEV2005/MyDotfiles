@@ -36,6 +36,16 @@ return {
 
   },
 
+
+-- llm assistant
+{ "nvim-neotest/nvim-nio", lazy = false },
+
+  {
+    "melbaldove/llm.nvim",
+    dependencies = { "nvim-neotest/nvim-nio" }
+  },
+
+
   -- jupytext/notebook
    {
       "GCBallesteros/jupytext.nvim",

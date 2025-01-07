@@ -46,10 +46,10 @@ require'lspconfig'.pylsp.setup{
           enabled = false
         },
         mccabe = {
-          enabled = false
+          enabled = true
         },
         pyflakes = {
-          enabled = false
+          enabled = true
         },
         jedi_completion = {
           enabled = true,
