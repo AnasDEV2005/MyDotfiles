@@ -2,6 +2,7 @@
 side panel, edited version of the side panel in fabric examples
 contains info about the system and a few tools, in webviews
 """
+import gi
 import subprocess
 import os
 import time
@@ -25,7 +26,8 @@ from fabric.widgets.scrolledwindow import ScrolledWindow
 from fabric.utils import DesktopApp, get_desktop_applications, idle_add, remove_handler, get_relative_path
 from fabric.utils import invoke_repeater, get_relative_path, exec_shell_command
 import subprocess
-
+from gi.repository import Gtk
+    
 
 
 def get_profile_picture_path() -> str | None:
@@ -79,6 +81,10 @@ class SidePanel(Window):
             all_visible=False,
             **kwargs,
         )
+
+
+        self.add_keybinding("Ctrl s", self.save_notes)
+
 
 ## STATUS CIRCLES
 #############################################################################################################################
@@ -148,14 +154,33 @@ class SidePanel(Window):
         )
 ##################### TOOLS  ########################################################################
 
+        self.textview = Gtk.TextView()
+        self.textview.set_size_request(300, 800)
 
 ## NOTES
 ############################################################
-        self.note = WebView(
+        
+        self.note = Box(
             name='notes',
-            url = "https://www.rapidtables.com/tools/notepad.html",
-            size = (300,900),
+            spacing = 15,
+            orientation = "v",
+            children = [
+                Label(label="NOTES", style="font-size: 50px;"),
+                Box(
+                    style = "padding: 28px;",
+                    children = [ self.textview,],
+                ),
+                Button(
+                    name = "save-button",
+                    label = "SAVE",
+                    on_clicked = lambda *_: self.save_notes(),
+                )
+            ],
         )
+
+        self.load_notes()
+
+
         self.window_note = Window(
                 name="window-inner",
                 layer="overlay",
@@ -163,13 +188,15 @@ class SidePanel(Window):
                 anchor="top left bottom",
                 margin="10px 0px 10px 0px",
                 keyboard_mode='on-demand',
-                exclusivity="auto",
-                visible=False,
-                all_visible=False,
+                exclusivity="none",
+                visible=True,
+                all_visible=True,
                 size=(300, 800),
                 child=self.note,
             )
+        self.window_note.add_keybinding("Ctrl s", self.save_notes)
 
+        self.window_note.hide()
 ## POWER MENU
 #############################################################
         self.powermenu = Box(
@@ -263,7 +290,7 @@ class SidePanel(Window):
                 anchor="top left bottom",
                 margin="10px 0px 10px 0px",
                 keyboard_mode='on-demand',
-                exclusivity="auto",
+                exclusivity="none",
                 visible=False,
                 all_visible=False,
                 size=(400, 1000),
@@ -285,7 +312,7 @@ class SidePanel(Window):
                         size=38,
                     ),
 
-                    on_clicked=lambda *_: run_overview_widget(),
+                    on_clicked=lambda *_: self.run_overview_widget(),
                 ),
             self.progress_container,
             Button(name='apps',
@@ -364,8 +391,29 @@ class SidePanel(Window):
         return f"{int(uptime_days)} {'days' if uptime_days > 0 else 'day'}, {int(uptime_hours)} {'hours' if uptime_hours > 1 else 'hour'}"
     
 
+    def save_notes(self, *args):
+        buffer = self.textview.get_buffer()
+        
+        start_iter = buffer.get_start_iter()
+        end_iter = buffer.get_end_iter()
+        
+        text = buffer.get_text(start_iter, end_iter, True)
+        home_dir = os.path.expanduser("~")
+        file_path = os.path.join(home_dir, "fabric-notes.txt")
+        with open(file_path, 'w') as file:
+            file.write(text)
 
+    def load_notes(self):
+        home_dir = os.path.expanduser("~")
+        file_path = os.path.join(home_dir, "fabric-notes.txt")
+        try:
+            with open(file_path, 'r') as file:
+                file_content = file.read()
+            buffer = self.textview.get_buffer()
+            buffer.set_text(file_content)
 
+        except Exception as e:
+            print(f"Error reading file: {e}")
 
 
     def toggle_window_note(self):

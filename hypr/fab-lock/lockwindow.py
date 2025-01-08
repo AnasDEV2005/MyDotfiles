@@ -27,7 +27,7 @@ def get_profile_picture_path() -> str | None:
         path = os.path.expanduser("~/.face")
     if not os.path.exists(path):
         logger.warning(
-            "can't fetch a user profile picture, add a profile picture image at ~/.face or at ~/Pictures/Other/profile.jpg"
+    "can't fetch a user profile picture, add a profile picture image at ~/.face or at ~/Pictures/Other/profile.jpg"
         )
         path = None
     return path
