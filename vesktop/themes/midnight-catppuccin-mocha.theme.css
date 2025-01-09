@@ -14,10 +14,10 @@
 
 @import url('https://refact0r.github.io/midnight-discord/midnight.css');
 
-/* customize things here */
+
+/* You can now use the custom font in your styles */
 :root {
-	/* font, change to 'gg sans' for default discord font*/
-	--font: 'kawkab mono';
+    --font: 'newfont'; /* Using the local font */
 
 	/* color of status indicators and window controls */
 	--online-indicator: #a6e3a1; /* change to #23a55a for default green */

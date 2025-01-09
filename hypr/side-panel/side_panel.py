@@ -212,7 +212,7 @@ class SidePanel(Window):
                         size=38,
                     ),
 
-                    on_clicked=lambda *_: exec_shell_command('shutdown'),
+                    on_clicked=lambda *_: exec_shell_command('systemctl poweroff'),
                 ),                
             Button(name='reboot',
                    style='padding:10px ; border-radius: 5px;',
@@ -222,7 +222,7 @@ class SidePanel(Window):
                         size=30,
                     ),
 
-                    on_clicked=lambda *_: exec_shell_command('reboot'),
+                    on_clicked=lambda *_: exec_shell_command('systemctl soft-reboot'),
                 ),                
             Button(name='sleep',
                    style='padding:10px ; border-radius: 5px;',

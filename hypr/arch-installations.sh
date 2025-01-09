@@ -2,6 +2,8 @@
 
 PACKAGES=(
     "git"
+    "hyprpaper"
+    "hypridle"
     "neovim"
     "htop"
     "python-fabric-git"
@@ -21,7 +23,6 @@ PACKAGES=(
     "wine-staging-git"
     "wine-valve"
     "winegui-bin"
-    "wine" # dunno abt this
     "winetricks"
     "lsd"
     "pacseek"
@@ -42,12 +43,12 @@ PACKAGES=(
     "cava"
     "heroic-games-launcher-bin"
     "acpi"
+    "rustup"
+    "edex-ui"
+    "zsh-autosuggestions"
+    "antigen"
     # Add more packages here
 )
-
-
-# TODO : add installing the lock gtk lib 
-# and uuuh... some other install scripts
 
 
 command_exists() {
@@ -71,19 +72,40 @@ main() {
     else
         echo "'yay' is already installed."
     fi
-
-    echo "Updating system packages..."
-    yay -Syu --noconfirm
-
-    echo "Installing packages..."
-    for pkg in "${PACKAGES[@]}"; do
-        if yay -Qi "$pkg" >/dev/null 2>&1; then
-            echo "Package '$pkg' is already installed."
-        else
-            echo "Installing '$pkg'..."
-            yay -S --noconfirm "$pkg"
-        fi
-    done
+    
+    read -p "Do you want to let us install everything for you or confirm what to install (some of these are necessary for certain functionalities)? [y/n]" confirm_ornot
+    if [ "$confirm_ornot" == "y" ]; then
+        
+        echo "Installing packages..."
+        for pkg in "${PACKAGES[@]}"; do
+            if yay -Qi "$pkg" >/dev/null 2>&1; then
+                echo "Package '$pkg' is already installed."
+            else
+                read -p "Should we proceed with installing '$pkg' ? (y/n)" install_choice
+                if [ "$install_choice" == "y" ]; then
+                    echo "Installing '$pkg'..."
+                    yay -S --noconfirm "$pkg"
+                else
+                    echo "Skipping '$pkg'"
+                fi
+            fi
+        done
+    else
+        echo "Installing packages..."
+        for pkg in "${PACKAGES[@]}"; do
+            if yay -Qi "$pkg" >/dev/null 2>&1; then
+                echo "Package '$pkg' is already installed."
+            else
+                read -p "Should we proceed with installing '$pkg' ? (y/n)" install_choice
+                if [ "$install_choice" == "y" ]; then
+                    echo "Installing '$pkg'..."
+                    yay -S --noconfirm "$pkg"
+                else
+                    echo "Skipping '$pkg'"
+                fi
+            fi
+        done
+    fi 
 
     echo "All done!"
 }

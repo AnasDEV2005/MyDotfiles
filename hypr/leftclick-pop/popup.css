@@ -1,25 +1,25 @@
 :vars {
-    --background: #0f1416;
-    --foreground: #89cdd2;
-    --color0: #150d16;
-    --color1: #7794c9;
-    --color2: #9C5995;
-    --color3: #5c9aab;
-    --color4: #9A62F3;
-    --color5: #E075DF;
-    --color6: #F98F9F;
-    --color7: #f5dbc4;
-    --color8: #9dc7e0;
-    --color9: #244a4f;
-    --color10: #9C5995;
-    --color11: #69edff;
-    --color12: #7794c9;
-    --color13: #E075DF;
-    --color14: #F98F9F;
-    --color15: #f5dbc4;
+    --background: #1c2433;
+    --foreground: #69C3FF;
+    --color0:#1c2433;
+    --color1: #262e3d;
+    --color2: #303847;
+    --color3: #444c5b;
+    --color4: #a1adb7;
+    --color5: #c3cfd9;
+    --color6: #ABB7C1;
+    --color7: #08bdba;
+    --color8: #FF738A;
+    --color9: #FF955C;
+    --color10: #EACD61;
+    --color11: #3CEC85;
+    --color12: #77aed7;
+    --color13: #69C3FF;
+    --color14: #22ECDB;
+    --color15: #B78AFF;
     --window-bg: alpha(var(--background), 0.9);
     --module-bg: alpha(var(--background), 0.8);
-    --border-color: var(--color11);
+    --border-color: var(--foreground);
 }
 
 * {
@@ -37,12 +37,12 @@
 }
 
 #big {
-    color: #d9edee;
+    color: var(--color5);
     font-weight: 500;
     font-size: 18px;
 }
 #small { 
-    color: #d9edee;
+    color: var(--color5);
     font-weight: 400;
     font-size: 14px;
 }
@@ -50,9 +50,9 @@
 #inside-box {
     margin: 10px;
     padding : 13px;
-    border-color: #9dc7e0;
+    border-color: var(--color12);
     border-width: 2px;
-    background-color: #171e21;
+    background-color: var(--background);
     border-radius: 2px;
 }
 
@@ -81,8 +81,8 @@
 
 #mem-bar {
     color: var(--module-bg);
-    background-color: #457d85;
-    border: solid 10px #89cdd2;
+    background-color: var(--color0);
+    border: solid 10px var(--color12);
 }
 
 #hq {
@@ -106,14 +106,14 @@
 }
 
 #hq_button:hover {
-    background-color: #7794c9;
+    background-color: var(--color12);
     transition: background 0.4s;
 }
 
 
 
 #profile-pic {
-    background-color: alpha(var(--color11), 0.2);
+    background-color: alpha(var(--color1), 0.2);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

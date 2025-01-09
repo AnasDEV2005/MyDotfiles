@@ -3,32 +3,30 @@
    
 
 :vars {
-    --background: #2e4954;
-    --foreground: #89cdd2;
-    --color0: #150d16;
-    --color1: #7794c9;
-    --color2: #9C5995;
-    --color3: #5c9aab;
-    --color4: #9A62F3;
-    --color5: #E075DF;
-    --color6: #F98F9F;
-    --color7: #f5dbc4;
-    --color8: #9dc7e0;
-    --color9: #244a4f;
-    --color10: #9C5995;
-    --color11: #69edff;
-    --color12: #7794c9;
-    --color13: #E075DF;
-    --color14: #F98F9F;
-    --color15: #f5dbc4;
-    --window-bg: alpha(var(--background), 0.6);
-    --module-bg: alpha(var(--background), 0.4);
-    --border-color: var(--color11);
-    --ws-active: var(--color9);
-    --ws-inactive: var(--color3);
-    --ws-empty: var(--color8);
-    --ws-hover: var(--color1);
-    --ws-urgent: var(--color12);
+    --background: #1c2433;
+    --foreground: #69C3FF;
+    --color0:#1c2433;
+    --color1: #262e3d;
+    --color2: #303847;
+    --color3: #444c5b;
+    --color4: #a1adb7;
+    --color5: #c3cfd9;
+    --color6: #ABB7C1;
+    --color7: #08bdba;
+    --color8: #FF738A;
+    --color9: #FF955C;
+    --color10: #EACD61;
+    --color11: #3CEC85;
+    --color12: #77aed7;
+    --color13: #69C3FF;
+    --color14: #22ECDB;
+    --color15: #B78AFF;
+    --window-bg: alpha(var(--background), 0.9);
+    --module-bg: alpha(var(--background), 0.8);
+    --border-color: var(--foreground);
+    --ws-inactive: var(--foreground);
+    --ws-active: var(--color7);
+    --ws-urgent: var(--color13);
 }
 
 /* unset so we can style everything from the ground up. */
@@ -36,7 +34,7 @@
     all: unset;
     color: var(--foreground);
     font-size: 16px;
-    font-family: "Jost*", sans-serif;
+    font-family: "newfont", sans-serif;
     border-radius: 1px;
 }
 
