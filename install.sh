@@ -35,14 +35,7 @@ ninja -C build
 sudo ninja -C build install
 sudo ldconfig
 
-echo "Verifying python packages"
 
-cd ~/.config/hypr 
-source ./fabric-venv/bin/activate
-pip install loguru
-pip install psutil
-pip install subprocess
-pip install pam
 
 cd ~
 
@@ -62,22 +55,32 @@ sudo cp ./stopwatch usr/local/bin
 cd ~ 
 touch fabric-notes.txt 
 
+
+echo "installing dotfiles"
+
 cd ~
 git clone https://github.com/zsh-users/zsh-autosuggestions
 
-sudo mv ~/.config/dotfiles/hypr/.zshrc ~/.zshrc
+sudo mv ~/.config/LobOS/hypr/.zshrc ~/.zshrc
 
-sudo cp ~/.config/dotfiles/hypr ~/.config
+sudo cp ~/.config/LobOS/hypr ~/.config
 
-sudo cp ~/.config/dotfiles/alacritty ~/.config
+sudo cp ~/.config/LobOS/alacritty ~/.config
 
-sudo cp ~/.config/dotfiles/nvim ~/.config
+sudo cp ~/.config/LobOS/nvim ~/.config
 
-sudo cp ~/.config/dotfiles/neofetch ~/.config 
+sudo cp ~/.config/LobOS/neofetch ~/.config 
 
-sudo cp ~/.config/dotfiles/vesktop ~/.config
+sudo cp ~/.config/LobOS/vesktop ~/.config
 
+echo "Verifying python packages"
 
+cd ~/.config/hypr 
+source ./fabric-venv/bin/activate
+pip install loguru
+pip install psutil
+pip install subprocess
+pip install pam
 
 
 
