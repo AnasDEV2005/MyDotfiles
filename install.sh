@@ -73,6 +73,10 @@ sudo cp ~/.config/LobOS/neofetch ~/.config
 
 sudo cp ~/.config/LobOS/vesktop ~/.config
 
+
+sudo cp ~/.config/LobOS/autologin.conf /etc/sddm.conf.d/   
+
+
 echo "Verifying python packages"
 
 cd ~/.config/hypr 
@@ -81,7 +85,6 @@ pip install loguru
 pip install psutil
 pip install subprocess
 pip install pam
-
 
 
 
